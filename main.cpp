@@ -50,8 +50,8 @@ GMOD_MODULE_OPEN()
         std::string str = "\\Processor(" + std::to_string(core) + ")\\% Processor Time";
         strings[core] = std::wstring(str.begin(), str.end());
     }
-    cpuQuery = new PDH_HQUERY[8];
-    cpuTotal = new PDH_HCOUNTER[8];
+    cpuQuery = new PDH_HQUERY[numProcessors];
+    cpuTotal = new PDH_HCOUNTER[numProcessors];
 
     for (unsigned short core = 0; core < numProcessors; core++)
     {
