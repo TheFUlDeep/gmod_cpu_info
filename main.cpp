@@ -63,6 +63,7 @@ GMOD_MODULE_OPEN()
     LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
     LUA->PushCFunction(GetProcessorLoad);
     LUA->SetField(-2, "GetProcessorLoad"); // Set MyFirstFunction in lua to our C++ function
+    LUA->Pop();
 
     LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
     LUA->PushCFunction(GetPcocessorsCount);
