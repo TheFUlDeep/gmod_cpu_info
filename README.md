@@ -1,6 +1,6 @@
 Move dll file into garrysmod/lua/bin
 
-requre("cpu_info")
+require("cpu_info")
 
 GetProcessorsCount() - return count of processors
 
