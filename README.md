@@ -4,4 +4,4 @@ requre("cpu_info")
 
 GetProcessorsCount() - return count of processors
 
-GetProcessorLoad(num) - return utilizations of core in percentage
+GetProcessorLoad(num) - return utilizations of core in percentage (min num is 1)
