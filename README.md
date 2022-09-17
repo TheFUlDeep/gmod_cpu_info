@@ -1,3 +1,5 @@
+tested only on win32
+
 Move dll file into garrysmod/lua/bin
 
 require("cpu_info")
