@@ -43,22 +43,17 @@ GMOD_MODULE_OPEN()
     numProcessors = sysInfo.dwNumberOfProcessors;
 
     //обращение к первому индекусу - нулевой процессор, ко второму - первый и тд. Сделано для луа стайла
-    std::wstring* strings = new std::wstring[numProcessors];
-    for (size_t core = 0; core < numProcessors; core++)
-    {
-        std::string str = "\\Processor(" + std::to_string(core) + ")\\% Processor Time";
-        strings[core] = std::wstring(str.begin(), str.end());
-    }
     cpuQuery = new PDH_HQUERY[numProcessors + 1];
     cpuTotal = new PDH_HCOUNTER[numProcessors + 1];
 
     for (unsigned short core = 1; core <= numProcessors; core++)
     {
+        std::string str = "\\Processor(" + std::to_string(core - 1) + ")\\% Processor Time";
+        std::wstring wstr = std::wstring(str.begin(), str.end());
         PdhOpenQuery(NULL, NULL, &cpuQuery[core]);
-        PdhAddEnglishCounter(cpuQuery[core], strings[core - 1].c_str(), NULL, &cpuTotal[core]);
+        PdhAddEnglishCounter(cpuQuery[core], wstr.c_str(), NULL, &cpuTotal[core]);
         PdhCollectQueryData(cpuQuery[core]);
     }
-    delete[] strings;
 
     LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
     LUA->PushCFunction(GetProcessorLoad);
