@@ -12,7 +12,6 @@ using namespace GarrysMod::Lua;
 PDH_HQUERY* cpuQuery;
 PDH_HCOUNTER* cpuTotal;
 unsigned short numProcessors;
-std::wstring* strings;
 
 
 int getCurrentValue(unsigned short core) {
@@ -44,7 +43,7 @@ GMOD_MODULE_OPEN()
     GetSystemInfo(&sysInfo);
     numProcessors = sysInfo.dwNumberOfProcessors;
 
-    strings = new std::wstring[numProcessors];
+    std::wstring* strings = new std::wstring[numProcessors];
     for (size_t core = 0; core < numProcessors; core++)
     {
         std::string str = "\\Processor(" + std::to_string(core) + ")\\% Processor Time";
