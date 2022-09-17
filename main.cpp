@@ -13,7 +13,7 @@ PDH_HQUERY* cpuQuery;
 PDH_HCOUNTER* cpuTotal;
 unsigned short numProcessors;
 
-
+//обрезается то инта, так как мне нужны только целые числа
 int getCurrentValue(unsigned short core) {
     PDH_FMT_COUNTERVALUE counterVal;
 
