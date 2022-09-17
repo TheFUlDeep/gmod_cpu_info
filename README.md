@@ -7,3 +7,5 @@ require("cpu_info")
 GetProcessorsCount() - return count of processors
 
 GetProcessorLoad(num) - return utilizations of core in percentage (min num is 1)
+
+example in lua https://github.com/TheFUlDeep/gmod_addons/blob/master/custom_commands/lua/thefuldeep_autorun/sh_cpu_load.lua
