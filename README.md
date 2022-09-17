@@ -1,4 +1,4 @@
-tested only on win32 gmod version
+tested only on server win32 gmod version
 
 Move dll file into garrysmod/lua/bin
 
