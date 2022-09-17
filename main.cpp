@@ -26,6 +26,8 @@ int getCurrentValue(unsigned short core) {
 LUA_FUNCTION(GetProcessorLoad)
 {
     double first_number = LUA->CheckNumber(1);
+    //memory miss protection
+    if (first_number < 1 || first_number > numProcessors) return 0;
     LUA->PushNumber(getCurrentValue(first_number));
     return 1;
 }
