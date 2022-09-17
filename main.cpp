@@ -26,7 +26,6 @@ int getCurrentValue(unsigned short core) {
 LUA_FUNCTION(GetProcessorLoad)
 {
     double first_number = LUA->CheckNumber(1);
-    //+1 чтобы был луа стайл (отсчет начинается с 1, а также все отрезки считаются включитально указанное число)
     LUA->PushNumber(getCurrentValue(first_number));
     return 1;
 }
@@ -43,19 +42,20 @@ GMOD_MODULE_OPEN()
     GetSystemInfo(&sysInfo);
     numProcessors = sysInfo.dwNumberOfProcessors;
 
+    //обращение к первому индекусу - нулевой процессор, ко второму - первый и тд. Сделано для луа стайла
     std::wstring* strings = new std::wstring[numProcessors];
-    for (size_t core = 1; core <= numProcessors; core++)
+    for (size_t core = 0; core < numProcessors; core++)
     {
-        std::string str = "\\Processor(" + std::to_string(core - 1) + ")\\% Processor Time";
+        std::string str = "\\Processor(" + std::to_string(core) + ")\\% Processor Time";
         strings[core] = std::wstring(str.begin(), str.end());
     }
-    cpuQuery = new PDH_HQUERY[numProcessors];
-    cpuTotal = new PDH_HCOUNTER[numProcessors];
+    cpuQuery = new PDH_HQUERY[numProcessors + 1];
+    cpuTotal = new PDH_HCOUNTER[numProcessors + 1];
 
     for (unsigned short core = 1; core <= numProcessors; core++)
     {
         PdhOpenQuery(NULL, NULL, &cpuQuery[core]);
-        PdhAddEnglishCounter(cpuQuery[core], strings[core].c_str(), NULL, &cpuTotal[core]);
+        PdhAddEnglishCounter(cpuQuery[core], strings[core - 1].c_str(), NULL, &cpuTotal[core]);
         PdhCollectQueryData(cpuQuery[core]);
     }
 
