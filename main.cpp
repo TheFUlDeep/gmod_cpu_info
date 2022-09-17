@@ -48,6 +48,7 @@ GMOD_MODULE_OPEN()
 
     for (unsigned short core = 1; core <= numProcessors; core++)
     {
+        //вроде если я делаю сразу wstr, то в стринге получается белеберда, поэтому сделал так
         std::string str = "\\Processor(" + std::to_string(core - 1) + ")\\% Processor Time";
         std::wstring wstr = std::wstring(str.begin(), str.end());
         PdhOpenQuery(NULL, NULL, &cpuQuery[core]);
