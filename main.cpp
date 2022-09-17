@@ -58,6 +58,7 @@ GMOD_MODULE_OPEN()
         PdhAddEnglishCounter(cpuQuery[core], strings[core - 1].c_str(), NULL, &cpuTotal[core]);
         PdhCollectQueryData(cpuQuery[core]);
     }
+    delete[] strings;
 
     LUA->PushSpecial(GarrysMod::Lua::SPECIAL_GLOB);
     LUA->PushCFunction(GetProcessorLoad);
@@ -76,6 +77,5 @@ GMOD_MODULE_CLOSE()
 {
     delete[] cpuQuery;
     delete[] cpuTotal;
-    delete[] strings;
     return 0;
 }
