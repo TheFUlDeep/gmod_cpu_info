@@ -14,7 +14,7 @@ PDH_HCOUNTER* cpuTotal;
 unsigned short numProcessors;
 
 //обрезается то инта, так как мне нужны только целые числа
-int getCurrentValue(unsigned short core) {
+unsigned short getCurrentValue(unsigned short core) {
     PDH_FMT_COUNTERVALUE counterVal;
 
     PdhCollectQueryData(cpuQuery[core]);
