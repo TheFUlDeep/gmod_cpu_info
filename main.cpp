@@ -13,22 +13,19 @@ PDH_HQUERY* cpuQuery;
 PDH_HCOUNTER* cpuTotal;
 unsigned short numProcessors;
 
-//обрезается то инта, так как мне нужны только целые числа
-unsigned short getCurrentValue(unsigned short core) {
-    PDH_FMT_COUNTERVALUE counterVal;
-
-    PdhCollectQueryData(cpuQuery[core]);
-    PdhGetFormattedCounterValue(cpuTotal[core], PDH_FMT_DOUBLE, NULL, &counterVal);
-    return counterVal.doubleValue;
-}
-
 
 LUA_FUNCTION(GetProcessorLoad)
 {
     double first_number = LUA->CheckNumber(1);
     //memory miss protection
     if (first_number < 1 || first_number > numProcessors) return 0;
-    LUA->PushNumber(getCurrentValue(first_number));
+    
+    PDH_FMT_COUNTERVALUE counterVal;
+    PdhCollectQueryData(cpuQuery[core]);
+    PdhGetFormattedCounterValue(cpuTotal[core], PDH_FMT_DOUBLE, NULL, &counterVal);
+    //обрезается то инта, так как мне нужны только целые числа
+    LUA->PushNumber(int(counterVal.doubleValue));
+    
     return 1;
 }
 
