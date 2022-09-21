@@ -23,7 +23,8 @@ LUA_FUNCTION(GetProcessorLoad)
     PDH_FMT_COUNTERVALUE counterVal;
     PdhCollectQueryData(cpuQuery[core]);
     PdhGetFormattedCounterValue(cpuTotal[core], PDH_FMT_DOUBLE, NULL, &counterVal);
-    //обрезается то инта, так как мне нужны только целые числа
+    //обрезается то шорта, так как мне нужны только целые числа
+    //cast работает быстрее чем floor, а значений меньше нуля у меня быть не должно, поэтому вот так
     LUA->PushNumber(static_cast<unsigned short>(counterVal.doubleValue));
     
     return 1;
