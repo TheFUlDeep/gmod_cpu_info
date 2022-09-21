@@ -24,7 +24,7 @@ LUA_FUNCTION(GetProcessorLoad)
     PdhCollectQueryData(cpuQuery[core]);
     PdhGetFormattedCounterValue(cpuTotal[core], PDH_FMT_DOUBLE, NULL, &counterVal);
     //обрезается то инта, так как мне нужны только целые числа
-    LUA->PushNumber(int(counterVal.doubleValue));
+    LUA->PushNumber(unsigned short(counterVal.doubleValue));
     
     return 1;
 }
