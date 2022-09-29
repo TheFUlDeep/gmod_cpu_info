@@ -16,13 +16,13 @@ unsigned short numProcessors;
 
 LUA_FUNCTION(GetProcessorLoad)
 {
-    double first_number = LUA->CheckNumber(1);
+    auto num = static_cast<unsigned short>(LUA->CheckNumber(1));
     //memory miss protection
-    if (first_number < 1 || first_number > numProcessors) return 0;
+    if (num < 1 || num > numProcessors) return 0;
 
     PDH_FMT_COUNTERVALUE counterVal;
-    PdhCollectQueryData(cpuQuery[static_cast<unsigned short>(first_number)]);
-    PdhGetFormattedCounterValue(cpuTotal[static_cast<unsigned short>(first_number)], PDH_FMT_DOUBLE, NULL, &counterVal);
+    PdhCollectQueryData(cpuQuery[num]);
+    PdhGetFormattedCounterValue(cpuTotal[num], PDH_FMT_DOUBLE, NULL, &counterVal);
     //обрезается то шорта, так как мне нужны только целые числа
     //cast работает быстрее чем floor, а значений меньше нуля у меня быть не должно, поэтому вот так
     LUA->PushNumber(static_cast<unsigned short>(counterVal.doubleValue));
