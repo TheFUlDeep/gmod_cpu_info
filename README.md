@@ -1,6 +1,6 @@
 tested only on server win32 gmod version
 
-Move dll file into garrysmod/lua/bin
+Move dll file into GarrysMod/garrysmod/lua/bin
 
 require("cpu_info")
 
