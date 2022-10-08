@@ -1,5 +1,7 @@
 tested only on server win32 gmod version
 
+Download dll from releases (https://github.com/TheFUlDeep/gmod_cpu_info/releases)
+
 Move dll file into GarrysMod/garrysmod/lua/bin
 
 require("cpu_info")
